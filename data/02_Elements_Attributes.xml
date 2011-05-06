@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<note kind="text">
+	<to>Tove</to>
+	<from>Jani</from>
+	<heading attr1="content1" attr2="content2">Reminder</heading>
+	<body attr1="content1">Don't forget me this weekend!</body>
+</note>

@@ -1,0 +1,48 @@
+Attribute Name Table
+1: {}:width
+2: {}:height
+3: {}:version
+4: {}:cx
+5: {}:cy
+6: {}:rx
+7: {}:ry
+Attribute Value Table
+1: 4cm
+2: 8cm
+3: 1.1
+4: 2cm
+5: 1cm
+Character Content Chunk Table
+1: 
+	
+2: 
+		
+3: 
+			
+4: 
+
+Element Name Table
+1: {http://example.org}:parent
+2: {http://example.org}:child
+3: {http://www.w3.org/2000/svg}svg:svg
+4: {http://www.w3.org/2000/svg}svg:ellipse
+Local Name Table
+1: parent
+2: child
+3: svg
+4: width
+5: height
+6: version
+7: ellipse
+8: cx
+9: cy
+10: rx
+11: ry
+Namespace Name Table
+1: http://example.org
+2: http://www.w3.org/2000/svg
+Other NCName Table
+Other String Table
+Other URI Table
+Prefix Table
+1: svg

@@ -1,0 +1,69 @@
+Attribute Name Table
+1: {http://www.w3.org/XML/1998/namespace}xml:lang
+2: {}:http-equiv
+3: {}:content
+4: {}:type
+5: {}:onload
+6: {}:title
+7: {}:id
+8: {}:src
+9: {}:alt
+10: {}:name
+11: {}:data
+12: {}:width
+13: {}:height
+Attribute Value Table
+1: en
+2: 100%
+3: 500
+Character Content Chunk Table
+1: 
+
+2: 
+ 
+3: XHTML
+4: 
+
+
+Element Name Table
+1: {http://www.w3.org/1999/xhtml}:html
+2: {http://www.w3.org/1999/xhtml}:head
+3: {http://www.w3.org/1999/xhtml}:meta
+4: {http://www.w3.org/1999/xhtml}:title
+5: {http://www.w3.org/1999/xhtml}:script
+6: {http://www.w3.org/1999/xhtml}:body
+7: {http://www.w3.org/1999/xhtml}:p
+8: {http://www.w3.org/1999/xhtml}:abbr
+9: {http://www.w3.org/1999/xhtml}:br
+10: {http://www.w3.org/1999/xhtml}:img
+11: {http://www.w3.org/1999/xhtml}:object
+Local Name Table
+1: html
+2: lang
+3: head
+4: meta
+5: http-equiv
+6: content
+7: title
+8: script
+9: type
+10: body
+11: onload
+12: p
+13: abbr
+14: br
+15: img
+16: id
+17: src
+18: alt
+19: object
+20: name
+21: data
+22: width
+23: height
+Namespace Name Table
+1: http://www.w3.org/1999/xhtml
+Other NCName Table
+Other String Table
+Other URI Table
+Prefix Table

@@ -1,0 +1,26 @@
+Attribute Name Table
+Attribute Value Table
+Character Content Chunk Table
+1: 
+	
+2: Tove
+3: Jani
+4: 
+
+Element Name Table
+1: {}:note
+2: {}:to
+3: {}:from
+4: {}:heading
+5: {}:body
+Local Name Table
+1: note
+2: to
+3: from
+4: heading
+5: body
+Namespace Name Table
+Other NCName Table
+Other String Table
+Other URI Table
+Prefix Table
