@@ -13,7 +13,7 @@ using namespace std;
 class FI2XMLContentHandler: public FI::DefaultContentHandler {
 
 		void startDocument() {
-			cout << "Start Document" << endl;
+			//cout << "Start Document" << endl;
 		}
 
 		void startElement(const FI::ParserVocabulary* vocab, const FI::Element &element, const std::vector<FI::Attribute> &attributes) {
@@ -62,7 +62,7 @@ class FI2XMLContentHandler: public FI::DefaultContentHandler {
 		}
 
 		void endDocument() {
-			cout << endl << "End Document" << endl;
+			//cout << endl << "End Document" << endl;
 		}
 
 };
@@ -107,88 +107,5 @@ int main(int ac, char* av[]) {
 	if (file.is_open())
 		file.close();
 
-	if (parser._vocab) {
-		std::cout << "Attribute Name Table" << std::endl;
-		for (int i = 1;;) {
-			try {
-				FI::ResolvedQualifiedName name;
-				parser._vocab->resolveQualifiedName(parser._vocab->getAttributeTable()->get(i), name);
-				std::cout << i << ": {" << name._namespaceName << "}" << name._prefix << ":" << name._localName << std::endl;
-				i++;
-			}
-			catch (std::exception& ) {
-				break;
-			}
-		}
-		std::cout << "Attribute Value Table" << std::endl;
-		for (int i = 1;;) {
-			try {
-				std::string name = parser._vocab->getAttributeValue(i).toString();
-				std::cout << i << ": " << name << std::endl;
-				i++;
-			}
-			catch (std::exception& ) {
-				break;
-			}
-		}
-		std::cout << "Character Content Chunk Table" << std::endl;
-		for (int i = 1;;) {
-			try {
-				std::string name = parser._vocab->getCharacterChunk(i).toString();
-				std::cout << i << ": " << name << std::endl;
-				i++;
-			}
-			catch (std::exception& ) {
-				break;
-			}
-		}
-		std::cout << "Element Name Table" << std::endl;
-		for (int i = 1;;) {
-			try {
-				FI::ResolvedQualifiedName name;
-				parser._vocab->resolveQualifiedName(parser._vocab->getElementTable()->get(i), name);
-				std::cout << i << ": {" << name._namespaceName << "}" << name._prefix << ":" << name._localName << std::endl;
-				i++;
-			}
-			catch (std::exception& ) {
-				break;
-			}
-		}
-		std::cout << "Local Name Table" << std::endl;
-		for (int i = 1;;) {
-			try {
-				std::string name = parser._vocab->getLocalName(i).toString();
-				std::cout << i << ": " << name << std::endl;
-				i++;
-			}
-			catch (std::exception& ) {
-				break;
-			}
-		}
-		std::cout << "Namespace Name Table" << std::endl;
-		for (int i = 1;;) {
-			try {
-				std::string name = parser._vocab->getNamespaceName(i).toString();
-				std::cout << i << ": " << name << std::endl;
-				i++;
-			}
-			catch (std::exception& ) {
-				break;
-			}
-		}
-		std::cout << "Prefix Table" << std::endl;
-		for (int i = 1;;) {
-			try {
-				std::string name = parser._vocab->getPrefix(i).toString();
-				std::cout << i << ": " << name << std::endl;
-				i++;
-			}
-			catch (std::exception& ) {
-				break;
-			}
-		}
-
-	}
-
-	return 0;
+  return 0;
 }
