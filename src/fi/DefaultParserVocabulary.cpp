@@ -88,45 +88,45 @@ EncodingAlgorithm* DefaultParserVocabulary::getEncodingAlgorithm(unsigned int in
 	THROW("Encoding algorithm index 11-31 are reserved for future versions of FastInfoSet");
 }
 
-void DefaultParserVocabulary::addAttributeValue(NonEmptyOctetString value)
+void DefaultParserVocabulary::addAttributeValue(const NonEmptyOctetString &value)
 {
-  std::vector<NonEmptyOctetString>::const_iterator I = find(_attributeValues.begin(), _attributeValues.end(), value);
+  StringTable::const_iterator I = find(_attributeValues.begin(), _attributeValues.end(), value);
   if (I == _attributeValues.end())
     _attributeValues.push_back(value);
 }
 
-void DefaultParserVocabulary::addCharacterChunk(NonEmptyOctetString value)
+void DefaultParserVocabulary::addCharacterChunk(const NonEmptyOctetString &value)
 {
-	std::vector<NonEmptyOctetString>::const_iterator I = find(_characterChunks.begin(), _characterChunks.end(), value);
+	StringTable::const_iterator I = find(_characterChunks.begin(), _characterChunks.end(), value);
   if (I == _characterChunks.end())
     _characterChunks.push_back(value);
 
 }
 
-void DefaultParserVocabulary::addNamespaceName(NonEmptyOctetString value)
+void DefaultParserVocabulary::addNamespaceName(const NonEmptyOctetString &value)
 {
-  std::vector<NonEmptyOctetString>::const_iterator I = find(_nameSpaceNames.begin(), _nameSpaceNames.end(), value);
+  StringTable::const_iterator I = find(_nameSpaceNames.begin(), _nameSpaceNames.end(), value);
   if (I == _nameSpaceNames.end())
     _nameSpaceNames.push_back(value);
 }
 
-void DefaultParserVocabulary::addLocalName(NonEmptyOctetString value)
+void DefaultParserVocabulary::addLocalName(const NonEmptyOctetString &value)
 {
-  std::vector<NonEmptyOctetString>::const_iterator I = find(_localNames.begin(), _localNames.end(), value);
+  StringTable::const_iterator I = find(_localNames.begin(), _localNames.end(), value);
   if (I == _localNames.end())
 	  _localNames.push_back(value);
 }
 
-void DefaultParserVocabulary::addPrefix(NonEmptyOctetString value)
+void DefaultParserVocabulary::addPrefix(const NonEmptyOctetString &value)
 {
-  std::vector<NonEmptyOctetString>::const_iterator I = find(_prefixNames.begin(), _prefixNames.end(), value);
+  StringTable::const_iterator I = find(_prefixNames.begin(), _prefixNames.end(), value);
   if (I == _prefixNames.end())
 	  _prefixNames.push_back(value);
 }
 
-void DefaultParserVocabulary::addOtherString(NonEmptyOctetString value)
+void DefaultParserVocabulary::addOtherString(const NonEmptyOctetString &value)
 {
-  std::vector<NonEmptyOctetString>::const_iterator I = find(_comments.begin(), _comments.end(), value);
+  StringTable::const_iterator I = find(_comments.begin(), _comments.end(), value);
   if (I == _comments.end())
 	  _comments.push_back(value);
 }

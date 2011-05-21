@@ -69,12 +69,12 @@ public:
   virtual NonEmptyOctetString getOtherString(unsigned int index) const = 0;
 	virtual EncodingAlgorithm* getEncodingAlgorithm(unsigned int index) const = 0;
 	
-	virtual void addAttributeValue(NonEmptyOctetString value) = 0;
-  virtual void addCharacterChunk(NonEmptyOctetString value) = 0;
-	virtual void addNamespaceName(NonEmptyOctetString value) = 0;
-	virtual void addLocalName(NonEmptyOctetString value) = 0;
-	virtual void addPrefix(NonEmptyOctetString value) = 0;
-  virtual void addOtherString(NonEmptyOctetString value) = 0;
+	virtual void addAttributeValue(const NonEmptyOctetString &value) = 0;
+  virtual void addCharacterChunk(const NonEmptyOctetString &value) = 0;
+	virtual void addNamespaceName(const NonEmptyOctetString &value) = 0;
+	virtual void addLocalName(const NonEmptyOctetString &value) = 0;
+	virtual void addPrefix(const NonEmptyOctetString &value) = 0;
+  virtual void addOtherString(const NonEmptyOctetString &value) = 0;
 	virtual void addEncodingAlgorithm(EncodingAlgorithm* algorithm) = 0;
 
 	virtual std::string getExternalVocabularyURI() const = 0;

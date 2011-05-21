@@ -22,6 +22,7 @@
 
 namespace FI {
 
+  typedef std::vector<NonEmptyOctetString> StringTable;
   class QualifiedNameTable;
 
   /**
@@ -49,12 +50,12 @@ namespace FI {
       virtual inline QualifiedNameTable* getElementTable() const { return _elementNames; };
       virtual inline QualifiedNameTable* getAttributeTable() const { return _attributeNames; };
 
-      virtual void addAttributeValue(NonEmptyOctetString value);
-      virtual void addCharacterChunk(NonEmptyOctetString value);
-      virtual void addNamespaceName(NonEmptyOctetString value);
-      virtual void addLocalName(NonEmptyOctetString value);
-      virtual void addPrefix(NonEmptyOctetString value);
-      virtual void addOtherString(NonEmptyOctetString value);
+      virtual void addAttributeValue(const NonEmptyOctetString &value);
+      virtual void addCharacterChunk(const NonEmptyOctetString &value);
+      virtual void addNamespaceName(const NonEmptyOctetString &value);
+      virtual void addLocalName(const NonEmptyOctetString &value);
+      virtual void addPrefix(const NonEmptyOctetString &value);
+      virtual void addOtherString(const NonEmptyOctetString &value);
       virtual void addEncodingAlgorithm(EncodingAlgorithm* algorithm);
 
       virtual inline std::string getExternalVocabularyURI() const { return _externalVocabularyURI; };
@@ -67,12 +68,12 @@ namespace FI {
       // Tables
       QualifiedNameTable* _elementNames;
       QualifiedNameTable* _attributeNames;
-      std::vector<NonEmptyOctetString> _prefixNames;
-      std::vector<NonEmptyOctetString> _nameSpaceNames;
-      std::vector<NonEmptyOctetString> _localNames;
-      std::vector<NonEmptyOctetString> _attributeValues;
-      std::vector<NonEmptyOctetString> _characterChunks;
-      std::vector<NonEmptyOctetString> _comments;
+      StringTable _prefixNames;
+      StringTable _nameSpaceNames;
+      StringTable _localNames;
+      StringTable _attributeValues;
+      StringTable _characterChunks;
+      StringTable _comments;
       AlgorithmTable _encodingAlgorithms;
 
       FI::IntEncodingAlgorithm _intEncodingAlgorithm;
