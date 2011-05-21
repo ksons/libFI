@@ -49,6 +49,7 @@ public:
   
   virtual void characters(const ParserVocabulary* vocab, const CharacterChunk &chunk) = 0;
   virtual void comment(const ParserVocabulary* vocab, const Comment &comment) = 0;
+  virtual void processingInstruction(const ParserVocabulary* vocab, const ProcessingInstruction &pi) = 0;
 };
 
 /**
@@ -71,6 +72,7 @@ public:
 
   virtual void characters(const ParserVocabulary* vocab, const CharacterChunk &chunk);
   virtual void comment(const ParserVocabulary* vocab, const Comment &comment);
+  virtual void processingInstruction(const ParserVocabulary* vocab, const ProcessingInstruction &pi);
 
 };
 

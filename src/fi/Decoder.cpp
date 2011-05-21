@@ -136,6 +136,18 @@ void Decoder::getComment(FI::Comment& comment)
   _vocab->addOtherString(comment._content);
 }
 
+// C.5 Encoding of the ProcessingInstruction type
+void Decoder::getProcessingInstruction(FI::ProcessingInstruction& processingInstruction)
+{
+  //C.5.3 The value of target is encoded as described in C.13.
+  getIdentifyingStringOrIndex(processingInstruction._target);
+
+  _b = static_cast<unsigned char>(_stream->get()); // next byte
+  //C.5.4 The value of content is encoded as described in C.14.
+  getNonIdentifyingStringOrIndex1(processingInstruction._content);
+  _vocab->addOtherString(processingInstruction._content);
+}
+
 
 bool Decoder::readAttributes(FI::Element& element)
 {

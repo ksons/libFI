@@ -26,6 +26,10 @@ void DefaultContentHandler::characters(const ParserVocabulary* , const Character
 {
 }
 
+void DefaultContentHandler::processingInstruction(const ParserVocabulary* , const ProcessingInstruction &)
+{
+}
+
 void DefaultContentHandler::comment(const ParserVocabulary* , const Comment &)
 {
 }

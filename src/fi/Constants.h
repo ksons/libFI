@@ -54,9 +54,12 @@ struct Constants {
 	// Attributes
 	static const unsigned char ATTRIBUTE_LITERAL_QNAME_FLAG = 0x78;
 
+  // Processing Instruction
+  static const unsigned char PROCESSING_INSTRUCTION = 0xE1; // 11100001
+	
   // Comment
   static const unsigned char COMMENT = 0xE2; // 11100010
-	
+
 	// Data
 	static const unsigned char NON_EMPTY_OCTET_STRING_2ND_MEDIUM = 0x40;
 	static const unsigned char NON_EMPTY_OCTET_STRING_2ND_LARGE = 0x60;

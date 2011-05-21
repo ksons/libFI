@@ -126,9 +126,16 @@ void DefaultParserVocabulary::addPrefix(const NonEmptyOctetString &value)
 
 void DefaultParserVocabulary::addOtherString(const NonEmptyOctetString &value)
 {
-  StringTable::const_iterator I = find(_comments.begin(), _comments.end(), value);
-  if (I == _comments.end())
-	  _comments.push_back(value);
+  StringTable::const_iterator I = find(_otherStrings.begin(), _otherStrings.end(), value);
+  if (I == _otherStrings.end())
+	  _otherStrings.push_back(value);
+}
+
+void DefaultParserVocabulary::addOtherNCName(const NonEmptyOctetString &value)
+{
+  StringTable::const_iterator I = find(_otherNCNames.begin(), _otherNCNames.end(), value);
+  if (I == _otherNCNames.end())
+	  _otherNCNames.push_back(value);
 }
 
 void DefaultParserVocabulary::addEncodingAlgorithm(EncodingAlgorithm* algorithm)

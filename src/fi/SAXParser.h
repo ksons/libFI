@@ -59,6 +59,7 @@ class LIBFI_EXPORT SAXParser: public Decoder {
 		virtual void processAttributes();
 		virtual void processCharacterChunk();
 		virtual void processComment();
+    virtual void processProcessingInstruction();
 
 		/**
 		 * Reference to content handler.

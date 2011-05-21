@@ -51,6 +51,10 @@ class FI2XMLContentHandler: public FI::DefaultContentHandler {
 			cout << vocab->resolveCharacterChunk(chunk._characterCodes);
 		}
 
+    void processingInstruction(const FI::ParserVocabulary* vocab, const FI::ProcessingInstruction &pi) {
+      cout << "<?" << vocab->resolveOtherNCName(pi._target) << " " << vocab->resolveOtherString(pi._content) << "?>";
+    }
+
 		void comment(const FI::ParserVocabulary* vocab, const FI::Comment &comment) {
 			cout << "<!--" << vocab->resolveOtherString(comment._content) << "-->";
 		}

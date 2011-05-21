@@ -71,6 +71,10 @@ public:
 	void getAttribute(FI::Attribute &value);
 
 	/**
+	 * C.4 Encoding of the ProcessingInstruction type
+	 */
+  void getProcessingInstruction(FI::ProcessingInstruction& processingInstruction);
+	/**
 	 * C.7 Encoding of the CharacterChunk type
 	 */
 	void getCharacterChunk(FI::CharacterChunk &chunk);

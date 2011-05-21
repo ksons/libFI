@@ -49,6 +49,7 @@ public:
   virtual NonEmptyOctetString	resolveOtherString(const NonIdentifyingStringOrIndex &input) const;
   virtual NonEmptyOctetString	resolvePrefix(const IdentifyingStringOrIndex &input) const;
   virtual NonEmptyOctetString	resolveNamespaceName(const IdentifyingStringOrIndex &input) const;
+  virtual NonEmptyOctetString	resolveOtherNCName(const IdentifyingStringOrIndex &input) const;
 	
 	virtual NonEmptyOctetString	decodeCharacterString(const EncodedCharacterString &input) const;
 
@@ -67,11 +68,13 @@ public:
 	virtual NonEmptyOctetString getAttributeValue(unsigned int index) const = 0;
 	virtual NonEmptyOctetString getCharacterChunk(unsigned int index) const = 0;
   virtual NonEmptyOctetString getOtherString(unsigned int index) const = 0;
+  virtual NonEmptyOctetString getOtherNCName(unsigned int index) const = 0;
 	virtual EncodingAlgorithm* getEncodingAlgorithm(unsigned int index) const = 0;
 	
 	virtual void addAttributeValue(const NonEmptyOctetString &value) = 0;
   virtual void addCharacterChunk(const NonEmptyOctetString &value) = 0;
 	virtual void addNamespaceName(const NonEmptyOctetString &value) = 0;
+  virtual void addOtherNCName(const NonEmptyOctetString &value) = 0;
 	virtual void addLocalName(const NonEmptyOctetString &value) = 0;
 	virtual void addPrefix(const NonEmptyOctetString &value) = 0;
   virtual void addOtherString(const NonEmptyOctetString &value) = 0;

@@ -89,6 +89,9 @@ void SAXParser::processElement() {
 			processElement();
 		} else if ((_b & Constants::TWO_BITS) == Constants::ELEMENT_CHARACTER_CHUNK) {
 			processCharacterChunk();
+		} else if (_b == Constants::PROCESSING_INSTRUCTION) {
+			_b = static_cast<unsigned char> (_stream->get());
+      processProcessingInstruction();
 		} else if (_b == Constants::COMMENT) {
 			_b = static_cast<unsigned char> (_stream->get());
 			processComment();
@@ -134,5 +137,12 @@ void SAXParser::processComment() {
 	getComment(comment);
 	_contentHandler->comment(_vocab, comment);
 }
+
+void SAXParser::processProcessingInstruction() {
+	FI::ProcessingInstruction processingInstruction;
+	getProcessingInstruction(processingInstruction);
+  _contentHandler->processingInstruction(_vocab, processingInstruction);
+}
+
 
 } // namespace FI

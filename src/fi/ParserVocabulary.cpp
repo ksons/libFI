@@ -168,6 +168,15 @@ namespace FI {
     return getPrefix(stringIndex);
   }
 
+  NonEmptyOctetString	ParserVocabulary::resolveOtherNCName(const IdentifyingStringOrIndex &input) const
+  {
+    unsigned int stringIndex = input._stringIndex;
+    if (stringIndex == INDEX_NOT_SET)
+    {
+      return input._literalCharacterString;
+    }
+    return getOtherNCName(stringIndex);
+  }
   
   NonEmptyOctetString	ParserVocabulary::resolveNamespaceName(const IdentifyingStringOrIndex &input) const
   {
