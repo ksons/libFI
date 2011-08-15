@@ -5,72 +5,13 @@
 #include <fstream>
 
 #include <fi/SAXParser.h>
-#include <fi/ContentHandler.h>
 #include <fi/ParserVocabulary.h>
 #include <fi/QualifiedNameTable.h>
 
+#include "FI2XMLContentHandler.h"
+
 using namespace std;
 
-class FI2XMLContentHandler: public FI::DefaultContentHandler {
-
-		void startDocument() {
-			//cout << "Start Document" << endl;
-		}
-
-		void startElement(const FI::ParserVocabulary* vocab, const FI::Element &element, const std::vector<FI::Attribute> &attributes) {
-			FI::ResolvedQualifiedName elementName;
-			vocab->resolveElementName(element._qualifiedName, elementName);
-
-			cout << "<" << elementName;
-			// Write namespaces
-			std::vector<FI::NamespaceAttribute>::const_iterator N = element._namespaceAttributes.begin();
-			while (N != element._namespaceAttributes.end()) {
-				std::string prefix = vocab->resolvePrefix((*N)._prefix).toString();
-				cout << " xmlns";
-				if (!prefix.empty()) {
-					cout << ":" << prefix;
-				}
-				cout << "=\"";
-				cout << vocab->resolveNamespaceName((*N)._namespaceName);
-				cout << "\"";
-				N++;
-			}
-
-			// Write attributes
-			std::vector<FI::Attribute>::const_iterator I = attributes.begin();
-			FI::ResolvedQualifiedName attributeName;
-			while (I != attributes.end()) {
-				vocab->resolveAttributeName((*I)._qualifiedName, attributeName);
-				cout << " " << attributeName;
-				cout << "=\"" << vocab->resolveAttributeValue((*I)._normalizedValue) << "\"";
-				I++;
-			}
-			cout << ">";
-		}
-
-		void characters(const FI::ParserVocabulary* vocab, const FI::CharacterChunk &chunk) {
-			cout << vocab->resolveCharacterChunk(chunk._characterCodes);
-		}
-
-    void processingInstruction(const FI::ParserVocabulary* vocab, const FI::ProcessingInstruction &pi) {
-      cout << "<?" << vocab->resolveOtherNCName(pi._target) << " " << vocab->resolveOtherString(pi._content) << "?>";
-    }
-
-		void comment(const FI::ParserVocabulary* vocab, const FI::Comment &comment) {
-			cout << "<!--" << vocab->resolveOtherString(comment._content) << "-->";
-		}
-
-		void endElement(const FI::ParserVocabulary* vocab, const FI::Element &element) {
-			FI::ResolvedQualifiedName elementName;
-			vocab->resolveElementName(element._qualifiedName, elementName);
-			cout << "</" << elementName << ">";
-		}
-
-		void endDocument() {
-			//cout << endl << "End Document" << endl;
-		}
-
-};
 
 int main(int ac, char* av[]) {
 
@@ -88,6 +29,7 @@ int main(int ac, char* av[]) {
 
 	FI::SAXParser parser;
 	FI2XMLContentHandler handler;
+	handler.setStream(&std::cout);
 	parser.setContentHandler(&handler);
 	ifstream file;
 
