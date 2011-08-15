@@ -1,5 +1,6 @@
 #include "argument_helper.h"
 
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 
