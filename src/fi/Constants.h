@@ -48,17 +48,17 @@ struct Constants {
 	static const unsigned char ELEMENT_LITERAL_QNAME_FLAG = 0x3C;
 	static const unsigned char ELEMENT_CHARACTER_CHUNK = 0x80; // 10xxxxxx
 
-  // Namespace
-  static const unsigned char  NAMESPACE_ATTRIBUTE = 0xCC; // 110011 00
+	// Namespace
+	static const unsigned char NAMESPACE_ATTRIBUTE = 0xCC; // 110011 00
 
 	// Attributes
 	static const unsigned char ATTRIBUTE_LITERAL_QNAME_FLAG = 0x78;
 
-  // Processing Instruction
-  static const unsigned char PROCESSING_INSTRUCTION = 0xE1; // 11100001
-	
-  // Comment
-  static const unsigned char COMMENT = 0xE2; // 11100010
+	// Processing Instruction
+	static const unsigned char PROCESSING_INSTRUCTION = 0xE1; // 11100001
+
+	// Comment
+	static const unsigned char COMMENT = 0xE2; // 11100010
 
 	// Data
 	static const unsigned char NON_EMPTY_OCTET_STRING_2ND_MEDIUM = 0x40;
@@ -100,12 +100,10 @@ struct Constants {
 	static const unsigned char TERMINATOR_DOUBLE = 0xFF;
 
 	// Build in 1-10
-	static const unsigned int ENCODING_ALGORITHM_BUILTIN_END = 9; 
+	static const unsigned int ENCODING_ALGORITHM_BUILTIN_END = 9;
 	// 11-31 for future use
 	// 32 start application algorithms
 	static const unsigned int ENCODING_ALGORITHM_APPLICATION_START = 32;
-
-
 
 };
 
