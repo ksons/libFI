@@ -30,7 +30,7 @@ namespace FI {
      */
   struct NonEmptyOctetString : public std::basic_string<unsigned char> {
     NonEmptyOctetString() {};
-    NonEmptyOctetString(std::string str) {
+    NonEmptyOctetString(const std::string &str) {
       clear();
       insert(begin(), str.begin(), str.end());
     }
@@ -255,8 +255,8 @@ namespace FI {
     /** 
      * TODO: Insert documentation
      **/
-    struct Encoder  {
-    }; // Encoder
+    //struct Encoder  {
+    //}; // EncoderFunctions
     
 
 	struct ResolvedQualifiedName
@@ -278,6 +278,15 @@ namespace FI {
 	{
 		return o << ResolvedQualifiedName::getQName(qn._prefix, qn._localName);
 	}
+
+  class IBitWriter {
+  public:
+	  virtual void putBit(bool on) = 0;
+	  virtual void putBits(const std::string &bitString) = 0;
+	  virtual void putBits(unsigned int value, unsigned char count) = 0;
+	  virtual void putBytes(const unsigned char* bytes, size_t length) = 0;
+	  virtual int getBitPos() = 0;
+  };
 
 }; // namespace FI
 
