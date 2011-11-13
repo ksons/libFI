@@ -6,6 +6,7 @@ set (FI_SOURCES
 	SAXParser.cpp
 	ContentHandler.cpp
 	QualifiedNameTable.cpp
+	EncoderFunctions.cpp
 	)
 
 set (FI_HEADER
@@ -18,6 +19,7 @@ set (FI_HEADER
 	SAXParser.h
 	ContentHandler.h
 	QualifiedNameTable.h
+	EncoderFunctions.h
 	)
 	
 add_library(fi SHARED ${FI_SOURCES} ${FI_HEADER})
