@@ -22,7 +22,7 @@
 
 namespace FI {
 
-class StreamBitWriter: public IBitWriter {
+class LIBFI_EXPORT StreamBitWriter: public IBitWriter {
 public:
 	StreamBitWriter();
 	virtual ~StreamBitWriter();
