@@ -7,6 +7,8 @@ set (FI_SOURCES
 	ContentHandler.cpp
 	QualifiedNameTable.cpp
 	EncoderFunctions.cpp
+	Encoder.cpp
+	StreamBitWriter.cpp
 	)
 
 set (FI_HEADER
@@ -20,6 +22,8 @@ set (FI_HEADER
 	ContentHandler.h
 	QualifiedNameTable.h
 	EncoderFunctions.h
+	Encoder.h
+	StreamBitWriter.h
 	)
 	
 add_library(fi SHARED ${FI_SOURCES} ${FI_HEADER})

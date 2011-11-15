@@ -39,6 +39,8 @@ void SAXParser::processDocument() {
 		_b = static_cast<unsigned char> (_stream->get());
 		if (!checkBit(_b, 1)) { // 0 padding announcing element
 			processElement();
+		} else {
+			_terminated = _b == Constants::TERMINATOR_SINGLE;
 		}
 	}
 

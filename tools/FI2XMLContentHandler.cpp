@@ -36,6 +36,7 @@ void FI2XMLContentHandler::startElement(const FI::ParserVocabulary* vocab, const
         *_stream << "\"";
         N++;
     }
+    *_stream << ">";
 }
 
 void FI2XMLContentHandler::characters(const FI::ParserVocabulary* vocab, const FI::CharacterChunk &chunk)

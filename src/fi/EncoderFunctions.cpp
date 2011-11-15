@@ -9,7 +9,7 @@ namespace FI {
 
 void EncoderFunctions::encodeHeader(IBitWriter* w, bool /* encodeXmlDecl */) {
 	assert(w);
-	assert(w->getBitPos() == 0);
+	assert(w->getBitPos() == 1);
 
 	// ITU 12.6: 1110000000000000
 	w->putBits("1110000000000000");
@@ -21,24 +21,34 @@ void EncoderFunctions::encodeHeader(IBitWriter* w, bool /* encodeXmlDecl */) {
 
 void EncoderFunctions::encodeInitialVocabulary(IBitWriter* w, const std::string &external_voc) {
 	assert(w);
-	// TODO: assert(w->getBitPos() == 0);
+	// An encoding of this type always starts on the second bit of an octet
+	assert(w->getBitPos() == 2);
 
 	// ITU C.2.3
 	w->putBit(0); // additional-data
-	w->putBit(1); // initial-vocabulary
+	w->putBit(0); // initial-vocabulary
 	w->putBit(0); // notations
 	w->putBit(0); // unparsed-entities
 	w->putBit(0); // character-encoding-scheme
 	w->putBit(0); // standalone
 	w->putBit(0); // and version
-	// ITU C.2.5: padding '000' for optional component initial-vocabulary
+
+	/*// ITU C.2.5: padding '000' for optional component initial-vocabulary
 	w->putBits("000");
 	// ITU C.2.5.1: For each of the thirteen optional components:
 	// presence ? 1 : 0
 	w->putBits("1000000000000"); // 'external-vocabulary'
 	// ITU C.2.5.2: external-vocabulary is present
 	w->putBit(0);
-	encodeNonEmptyOctetString2(w, NonEmptyOctetString(external_voc));
+	encodeNonEmptyOctetString2(w, NonEmptyOctetString(external_voc));*/
+
+	// C.2.11.1: If it was the fourth bit of an octet, the bits '0000' (padding)
+	// are appended to the bit stream
+	if (w->getBitPos() == 5)
+		w->putBits("0000");
+
+	// so that the encoding of the [next] item starts on the first bit of the next octet
+	assert(w->getBitPos() == 1);
 }
 
 void EncoderFunctions::encodeTermination(IBitWriter* w) {
