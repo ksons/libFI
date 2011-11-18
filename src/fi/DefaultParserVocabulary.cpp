@@ -60,12 +60,12 @@ void DefaultParserVocabulary::initTableEntries()
 
   // 7.2.21 The PREFIX table shall have a built-in prefix entry of "xml",
   NonEmptyOctetString xmlNamespacePrefix(XML_NAMESPACE_PREFIX);
-  _prefixNames.push_back(xmlNamespacePrefix);
+  _tables.at(FI::PREFIX)->push_back(xmlNamespacePrefix);
 
   // 7.2.22 The NAMESPACE NAME table shall have a built-in namespace name entry of:
   // http://www.w3.org/XML/1998/namespace
   NonEmptyOctetString xmlNamespace(XML_NAMESPACE_NAME);
-  _nameSpaceNames.push_back(xmlNamespace);
+  _tables.at(FI::NAMESPACE_NAME)->push_back(xmlNamespace);
 }
 
 

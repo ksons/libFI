@@ -63,14 +63,14 @@ namespace FI {
       Each fast infoset document has eight dynamic string tables associated with it. Each dynamic string table
       contains character strings that can be referenced through a vocabulary table index */
       
-      StringTable _prefixNames;     // a) PREFIX
+      /*StringTable _prefixNames;     // a) PREFIX
       StringTable _nameSpaceNames;  // b) NAMESPACE NAME
       StringTable _localNames;      // c) LOCAL NAME
       StringTable _otherNCNames;    // d) OTHER NCNAME
       StringTable _otherURI;        // e) OTHER URI
       StringTable _attributeValues; // f) ATTRIBUTE VALUE
       StringTable _characterChunks; // g) CONTENT CHARACTER CHUNK
-      StringTable _otherStrings;        // h) OTHER STRING
+      StringTable _otherStrings;        // h) OTHER STRING*/
 	  
 	  StringTableVector _tables;
 
