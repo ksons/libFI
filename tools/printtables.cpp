@@ -67,7 +67,7 @@ int main(int ac, char* av[]) {
 		std::cout << "Attribute Value Table" << std::endl;
 		for (int i = 1;;) {
 			try {
-				std::string name = parser._vocab->getAttributeValue(i).toString();
+				std::string name = parser._vocab->getTableEntry(FI::ATTRIBUTE_VALUE, i).toString();
 				std::cout << i << ": " << name << std::endl;
 				i++;
 			}
@@ -78,7 +78,7 @@ int main(int ac, char* av[]) {
 		std::cout << "Character Content Chunk Table" << std::endl;
 		for (int i = 1;;) {
 			try {
-				std::string name = parser._vocab->getCharacterChunk(i).toString();
+				std::string name = parser._vocab->getTableEntry(FI::CHARACTER_CHUNK, i).toString();
 				std::cout << i << ": " << name << std::endl;
 				i++;
 			}
@@ -101,7 +101,7 @@ int main(int ac, char* av[]) {
 		std::cout << "Local Name Table" << std::endl;
 		for (int i = 1;;) {
 			try {
-				std::string name = parser._vocab->getLocalName(i).toString();
+				std::string name = parser._vocab->getTableEntry(FI::LOCAL_NAME, i).toString();
 				std::cout << i << ": " << name << std::endl;
 				i++;
 			}
@@ -112,7 +112,7 @@ int main(int ac, char* av[]) {
 		std::cout << "Namespace Name Table" << std::endl;
 		for (int i = 1;;) {
 			try {
-				std::string name = parser._vocab->getNamespaceName(i).toString();
+				std::string name = parser._vocab->getTableEntry(FI::NAMESPACE_NAME, i).toString();
 				std::cout << i << ": " << name << std::endl;
 				i++;
 			}
@@ -123,7 +123,7 @@ int main(int ac, char* av[]) {
 		std::cout << "Prefix Table" << std::endl;
 		for (int i = 1;;) {
 			try {
-				std::string name = parser._vocab->getPrefix(i).toString();
+				std::string name = parser._vocab->getTableEntry(FI::PREFIX, i).toString();
 				std::cout << i << ": " << name << std::endl;
 				i++;
 			}

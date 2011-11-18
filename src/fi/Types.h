@@ -286,6 +286,7 @@ namespace FI {
 	  virtual void putBits(unsigned int value, unsigned char count) = 0;
 	  virtual void putBytes(const unsigned char* bytes, size_t length) = 0;
 	  virtual int getBitPos() = 0;
+	  virtual void fillByte(bool on) = 0;
   };
 
 }; // namespace FI

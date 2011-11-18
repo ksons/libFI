@@ -40,12 +40,17 @@ public:
 	void startDocument();
 	void endDocument();
 
-	void startNode(const std::string name);
-	void endNode();
+	void startElement(const std::string &name);
+	void endElement();
 
 
 protected:
-	void checkNode(bool fromAttribute);
+ 	/**
+	 * The vocabulary used for decoding.
+	 */
+	ParserVocabulary* _vocab;
+
+	void finishLastElement(bool fromAttribute);
 
 	// C.13 Encoding of the IdentifyingStringOrIndex type
 	void encodeIdentifyingStringOrIndex(const std::string &name);

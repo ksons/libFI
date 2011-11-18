@@ -23,6 +23,7 @@
 namespace FI {
 
   typedef std::vector<NonEmptyOctetString> StringTable;
+  typedef std::vector<StringTable*> StringTableVector;
   class QualifiedNameTable;
 
   /**
@@ -36,28 +37,16 @@ namespace FI {
       DefaultParserVocabulary(const char* uri);
       virtual ~DefaultParserVocabulary();
 
-      //virtual inline ResolvedQualifiedName getElementName(unsigned int index) const { return _elementNames.at(index-1); };
-      //virtual ResolvedQualifiedName getAttributeName(unsigned int index) const { return _attributeNames.at(index-1); };
-
-      virtual inline NonEmptyOctetString getPrefix(unsigned int index) const { return _prefixNames.at(index-1); };
-      virtual inline NonEmptyOctetString getNamespaceName(unsigned int index)  const { return _nameSpaceNames.at(index-1); };
-      virtual inline NonEmptyOctetString getLocalName(unsigned int index) const { return _localNames.at(index-1); };
-      virtual inline NonEmptyOctetString getAttributeValue(unsigned int index) const { return _attributeValues.at(index-1); };
-      virtual inline NonEmptyOctetString getCharacterChunk(unsigned int index) const { return _characterChunks.at(index-1); };
-      virtual inline NonEmptyOctetString getOtherString(unsigned int index) const { return _otherStrings.at(index-1); };
-      virtual inline NonEmptyOctetString getOtherNCName(unsigned int index) const { return _otherNCNames.at(index-1); };
-	    virtual EncodingAlgorithm* getEncodingAlgorithm(unsigned int index) const;
+	  virtual inline NonEmptyOctetString getTableEntry(TableNames table, unsigned int index) const {
+		  return _tables.at(table)->at(index - 1);
+	  };
+	  
+	  virtual EncodingAlgorithm* getEncodingAlgorithm(unsigned int index) const;
 
       virtual inline QualifiedNameTable* getElementTable() const { return _elementNames; };
       virtual inline QualifiedNameTable* getAttributeTable() const { return _attributeNames; };
-
-      virtual void addAttributeValue(const NonEmptyOctetString &value);
-      virtual void addCharacterChunk(const NonEmptyOctetString &value);
-      virtual void addNamespaceName(const NonEmptyOctetString &value);
-      virtual void addLocalName(const NonEmptyOctetString &value);
-      virtual void addPrefix(const NonEmptyOctetString &value);
-      virtual void addOtherString(const NonEmptyOctetString &value);
-      virtual void addOtherNCName(const NonEmptyOctetString &value);
+	  
+	  virtual void addStringToTable(TableNames table, const NonEmptyOctetString &value);
       virtual void addEncodingAlgorithm(EncodingAlgorithm* algorithm);
 
       virtual inline std::string getExternalVocabularyURI() const { return _externalVocabularyURI; };
@@ -82,6 +71,8 @@ namespace FI {
       StringTable _attributeValues; // f) ATTRIBUTE VALUE
       StringTable _characterChunks; // g) CONTENT CHARACTER CHUNK
       StringTable _otherStrings;        // h) OTHER STRING
+	  
+	  StringTableVector _tables;
 
       AlgorithmTable _encodingAlgorithms;
 

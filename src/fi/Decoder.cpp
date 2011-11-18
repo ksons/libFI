@@ -124,7 +124,7 @@ void Decoder::getCharacterChunk(FI::CharacterChunk& chunk)
 {
   // C.7.3 The value of character-codes is encoded as described in C.15.
 	getNonIdentifyingStringOrIndex3(chunk._characterCodes);
-	_vocab->addCharacterChunk(chunk._characterCodes);
+	_vocab->addStringOrIndex(CHARACTER_CHUNK, chunk._characterCodes);
 }
 
 // C.8 Encoding of the Comment type
@@ -133,7 +133,7 @@ void Decoder::getComment(FI::Comment& comment)
   // C.8.3 The value of content is encoded as described in C.14.
   getNonIdentifyingStringOrIndex1(comment._content);
   // OTHER STRING category
-  _vocab->addOtherString(comment._content);
+  _vocab->addStringOrIndex(OTHER_STRING, comment._content);
 }
 
 // C.5 Encoding of the ProcessingInstruction type
@@ -145,7 +145,7 @@ void Decoder::getProcessingInstruction(FI::ProcessingInstruction& processingInst
   _b = static_cast<unsigned char>(_stream->get()); // next byte
   //C.5.4 The value of content is encoded as described in C.14.
   getNonIdentifyingStringOrIndex1(processingInstruction._content);
-  _vocab->addOtherString(processingInstruction._content);
+  _vocab->addStringOrIndex(OTHER_STRING, processingInstruction._content);
 }
 
 
@@ -240,7 +240,7 @@ void Decoder::getAttribute(FI::Attribute &attribute)
 	
 	//C.4.4 The value of normalized-value is encoded as described in C.14.
 	getNonIdentifyingStringOrIndex1(attribute._normalizedValue);
-	_vocab->addAttributeValue(attribute._normalizedValue);
+	_vocab->addStringOrIndex(ATTRIBUTE_VALUE, attribute._normalizedValue);
 }
 
 // C.17: Check whether we've got a literal QNAME or surrogate
@@ -341,7 +341,7 @@ void Decoder::getNamespaceAttribute(FI::NamespaceAttribute &value)
         {
         std::string nameSpace;
         OCTETS2STRING(value._namespaceName._literalCharacterString, nameSpace);
-        _vocab->addNamespaceName(nameSpace);
+        _vocab->addStringToTable(NAMESPACE_NAME, nameSpace);
         }
       std::cerr << "no prefix, but namespace" << std::endl;
       break;
@@ -358,14 +358,14 @@ void Decoder::getNamespaceAttribute(FI::NamespaceAttribute &value)
         {
         std::string prefix;
         OCTETS2STRING(value._prefix._literalCharacterString, prefix);
-        _vocab->addPrefix(prefix);
+        _vocab->addStringToTable(PREFIX, prefix);
         }
       _b = static_cast<unsigned char>(_stream->get()); // next byte
       if (getIdentifyingStringOrIndex(value._namespaceName) == INDEX_NOT_SET)
         {
         std::string nameSpace;
         OCTETS2STRING(value._namespaceName._literalCharacterString, nameSpace);
-        _vocab->addNamespaceName(nameSpace);
+		_vocab->addStringToTable(NAMESPACE_NAME, nameSpace);
         }
       std::cerr << "prefix and namespace" << std::endl;
       break;

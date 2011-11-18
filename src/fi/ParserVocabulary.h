@@ -30,6 +30,17 @@ class EncodingAlgorithm;
 class QualifiedNameTable;
 typedef std::vector<EncodingAlgorithm*> AlgorithmTable;
 
+enum TableNames {
+	ATTRIBUTE_VALUE = 0,
+	CHARACTER_CHUNK,
+	NAMESPACE_NAME,
+	OTHER_NCNAME,
+	LOCAL_NAME,
+	PREFIX,
+	OTHER_STRING,
+	TABLENAMES_MAX
+};
+
 /**
  * Abstract class that defines a ParserVocabulary
  */
@@ -38,49 +49,38 @@ class ParserVocabulary
 public:
 	virtual ~ParserVocabulary() {};
 
+	/* resolve */
 	virtual void resolveElementName(const QualifiedNameOrIndex &input, ResolvedQualifiedName& out) const;
 	virtual void resolveAttributeName(const QualifiedNameOrIndex &input, ResolvedQualifiedName& out) const;
-
 	virtual void resolveQualifiedName(const QualifiedNameOrIndex &input, ResolvedQualifiedName &out) const;
 	virtual void resolveQualifiedName(const QualifiedName &input, ResolvedQualifiedName &out) const;
 
-	virtual NonEmptyOctetString	resolveAttributeValue(const NonIdentifyingStringOrIndex &input) const;
-	virtual NonEmptyOctetString	resolveCharacterChunk(const NonIdentifyingStringOrIndex &input) const;
-  virtual NonEmptyOctetString	resolveOtherString(const NonIdentifyingStringOrIndex &input) const;
-  virtual NonEmptyOctetString	resolvePrefix(const IdentifyingStringOrIndex &input) const;
-  virtual NonEmptyOctetString	resolveNamespaceName(const IdentifyingStringOrIndex &input) const;
-  virtual NonEmptyOctetString	resolveOtherNCName(const IdentifyingStringOrIndex &input) const;
-	
+	virtual NonEmptyOctetString	resolveStringOrIndex(TableNames table, const NonIdentifyingStringOrIndex &input) const;
+	virtual NonEmptyOctetString resolveStringOrIndex(TableNames table, const IdentifyingStringOrIndex &input) const;
 	virtual NonEmptyOctetString	decodeCharacterString(const EncodedCharacterString &input) const;
+	
+	/* add to tables */
+	virtual void addStringToTable(TableNames table, const NonEmptyOctetString &value) = 0;
 
+	virtual void addQualifiedName(QualifiedNameTable* table, const QualifiedName& name);
+	inline void addAttributeName(const QualifiedNameOrIndex& name) {
+		addQualifiedName(getAttributeTable(), name._literalQualifiedName);
+	};
+	virtual void addElementName(const QualifiedNameOrIndex& name) {
+		addQualifiedName(getElementTable(), name._literalQualifiedName);
+	};
+	virtual void addStringOrIndex(TableNames table, const NonIdentifyingStringOrIndex& value);
+
+	/* get from tables*/
 	virtual QualifiedNameTable* getElementTable() const = 0;
 	virtual QualifiedNameTable* getAttributeTable() const = 0;
-	
-  virtual void addAttributeName(const QualifiedNameOrIndex& name);
-  virtual void addElementName(const QualifiedNameOrIndex& name);
-  virtual void addAttributeValue(const NonIdentifyingStringOrIndex& value);
-	virtual void addCharacterChunk(const NonIdentifyingStringOrIndex& chunk);
-  virtual void addOtherString(const NonIdentifyingStringOrIndex& chunk);
-
-	virtual NonEmptyOctetString getPrefix(unsigned int index) const = 0;
-	virtual NonEmptyOctetString getNamespaceName(unsigned int index) const = 0;
-	virtual NonEmptyOctetString getLocalName(unsigned int index) const = 0;
-	virtual NonEmptyOctetString getAttributeValue(unsigned int index) const = 0;
-	virtual NonEmptyOctetString getCharacterChunk(unsigned int index) const = 0;
-  virtual NonEmptyOctetString getOtherString(unsigned int index) const = 0;
-  virtual NonEmptyOctetString getOtherNCName(unsigned int index) const = 0;
+	virtual NonEmptyOctetString getTableEntry(TableNames table, unsigned int index) const = 0;
 	virtual EncodingAlgorithm* getEncodingAlgorithm(unsigned int index) const = 0;
-	
-	virtual void addAttributeValue(const NonEmptyOctetString &value) = 0;
-  virtual void addCharacterChunk(const NonEmptyOctetString &value) = 0;
-	virtual void addNamespaceName(const NonEmptyOctetString &value) = 0;
-  virtual void addOtherNCName(const NonEmptyOctetString &value) = 0;
-	virtual void addLocalName(const NonEmptyOctetString &value) = 0;
-	virtual void addPrefix(const NonEmptyOctetString &value) = 0;
-  virtual void addOtherString(const NonEmptyOctetString &value) = 0;
-	virtual void addEncodingAlgorithm(EncodingAlgorithm* algorithm) = 0;
-
 	virtual std::string getExternalVocabularyURI() const = 0;
+	
+	/* encode values */  
+	//virtual void encodeElementName(QualifiedNameOrIndex &name);
+
 };
 
 } // namespace FI

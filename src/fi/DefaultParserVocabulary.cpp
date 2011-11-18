@@ -28,6 +28,11 @@ DefaultParserVocabulary::~DefaultParserVocabulary()
 {
 	delete _elementNames;
 	delete _attributeNames;
+	for(size_t i = 0; i < _tables.size(); i++) {
+		delete _tables[i];
+		_tables[i] = 0;
+	}
+	_tables.clear();
 }
 
 DefaultParserVocabulary::DefaultParserVocabulary(const char* uri) : _externalVocabularyURI(uri)
@@ -48,6 +53,10 @@ void DefaultParserVocabulary::initTableEntries()
 {
   _elementNames = new QualifiedNameTable();
   _attributeNames = new QualifiedNameTable();
+
+  for(int i = 0; i < TABLENAMES_MAX; i++) {
+	  _tables.push_back(new StringTable());
+  }
 
   // 7.2.21 The PREFIX table shall have a built-in prefix entry of "xml",
   NonEmptyOctetString xmlNamespacePrefix(XML_NAMESPACE_PREFIX);
@@ -88,54 +97,12 @@ EncodingAlgorithm* DefaultParserVocabulary::getEncodingAlgorithm(unsigned int in
 	THROW("Encoding algorithm index 11-31 are reserved for future versions of FastInfoSet");
 }
 
-void DefaultParserVocabulary::addAttributeValue(const NonEmptyOctetString &value)
+void DefaultParserVocabulary::addStringToTable(TableNames table, const NonEmptyOctetString &value)
 {
-  StringTable::const_iterator I = find(_attributeValues.begin(), _attributeValues.end(), value);
-  if (I == _attributeValues.end())
-    _attributeValues.push_back(value);
-}
-
-void DefaultParserVocabulary::addCharacterChunk(const NonEmptyOctetString &value)
-{
-	StringTable::const_iterator I = find(_characterChunks.begin(), _characterChunks.end(), value);
-  if (I == _characterChunks.end())
-    _characterChunks.push_back(value);
-
-}
-
-void DefaultParserVocabulary::addNamespaceName(const NonEmptyOctetString &value)
-{
-  StringTable::const_iterator I = find(_nameSpaceNames.begin(), _nameSpaceNames.end(), value);
-  if (I == _nameSpaceNames.end())
-    _nameSpaceNames.push_back(value);
-}
-
-void DefaultParserVocabulary::addLocalName(const NonEmptyOctetString &value)
-{
-  StringTable::const_iterator I = find(_localNames.begin(), _localNames.end(), value);
-  if (I == _localNames.end())
-	  _localNames.push_back(value);
-}
-
-void DefaultParserVocabulary::addPrefix(const NonEmptyOctetString &value)
-{
-  StringTable::const_iterator I = find(_prefixNames.begin(), _prefixNames.end(), value);
-  if (I == _prefixNames.end())
-	  _prefixNames.push_back(value);
-}
-
-void DefaultParserVocabulary::addOtherString(const NonEmptyOctetString &value)
-{
-  StringTable::const_iterator I = find(_otherStrings.begin(), _otherStrings.end(), value);
-  if (I == _otherStrings.end())
-	  _otherStrings.push_back(value);
-}
-
-void DefaultParserVocabulary::addOtherNCName(const NonEmptyOctetString &value)
-{
-  StringTable::const_iterator I = find(_otherNCNames.begin(), _otherNCNames.end(), value);
-  if (I == _otherNCNames.end())
-	  _otherNCNames.push_back(value);
+  StringTable* pTable = _tables.at(table);
+  StringTable::const_iterator I = find(pTable->begin(), pTable->end(), value);
+  if (I == pTable->end())
+    pTable->push_back(value);
 }
 
 void DefaultParserVocabulary::addEncodingAlgorithm(EncodingAlgorithm* algorithm)

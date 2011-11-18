@@ -26,13 +26,13 @@ void FI2XMLContentHandler::startElement(const FI::ParserVocabulary* vocab, const
     // Write namespaces
     std::vector<FI::NamespaceAttribute>::const_iterator N = element._namespaceAttributes.begin();
     while (N != element._namespaceAttributes.end()) {
-        std::string prefix = vocab->resolvePrefix((*N)._prefix).toString();
+		std::string prefix = vocab->resolveStringOrIndex(FI::PREFIX, (*N)._prefix).toString();
         *_stream << " xmlns";
         if (!prefix.empty()) {
             *_stream << ":" << prefix;
         }
         *_stream << "=\"";
-        *_stream << vocab->resolveNamespaceName((*N)._namespaceName);
+		*_stream << vocab->resolveStringOrIndex(FI::NAMESPACE_NAME, (*N)._namespaceName);
         *_stream << "\"";
         N++;
     }
@@ -41,17 +41,17 @@ void FI2XMLContentHandler::startElement(const FI::ParserVocabulary* vocab, const
 
 void FI2XMLContentHandler::characters(const FI::ParserVocabulary* vocab, const FI::CharacterChunk &chunk)
 {
-    *_stream << vocab->resolveCharacterChunk(chunk._characterCodes);
+	*_stream << vocab->resolveStringOrIndex(FI::CHARACTER_CHUNK, chunk._characterCodes);
 }
 
 void FI2XMLContentHandler::processingInstruction(const FI::ParserVocabulary* vocab, const FI::ProcessingInstruction &pi)
 {
-    *_stream << "<?" << vocab->resolveOtherNCName(pi._target) << " " << vocab->resolveOtherString(pi._content) << "?>";
+	*_stream << "<?" << vocab->resolveStringOrIndex(FI::OTHER_NCNAME, pi._target) << " " << vocab->resolveStringOrIndex(FI::OTHER_STRING, pi._content) << "?>";
 }
 
 void FI2XMLContentHandler::comment(const FI::ParserVocabulary* vocab, const FI::Comment &comment)
 {
-    *_stream << "<!--" << vocab->resolveOtherString(comment._content) << "-->";
+	*_stream << "<!--" << vocab->resolveStringOrIndex(FI::OTHER_STRING, comment._content) << "-->";
 }
 
 void FI2XMLContentHandler::endElement(const FI::ParserVocabulary* vocab, const FI::Element &element)

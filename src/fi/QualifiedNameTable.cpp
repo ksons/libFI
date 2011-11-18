@@ -24,6 +24,7 @@ QualifiedName QualifiedNameTable::get(unsigned int i) const {
 	return _names.at(i-1);
 }
 
+
 unsigned int QualifiedNameTable::addUnique(const QualifiedName& name) {
 	std::vector<QualifiedName>::const_iterator I = find(_names.begin(), _names.end(), name);
 	if (I == _names.end())

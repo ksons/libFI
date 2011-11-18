@@ -23,43 +23,43 @@ int documentOnly() {
 	return 0;
 }
 
-int oneNode() {
+int oneElement() {
 	FI::Encoder e;
 	FI::StreamBitWriter writer;
 	writer.setStream(&std::cout);
 	e.setWriter(&writer);
 	e.startDocument();
-	e.startNode("root");
-	e.endNode();
+	e.startElement("root");
+	e.endElement();
 	e.endDocument();
 	return 0;
 }
 
-int twoNodes() {
+int twoElements() {
 	FI::Encoder e;
 	FI::StreamBitWriter writer;
 	writer.setStream(&std::cout);
 	e.setWriter(&writer);
 	e.startDocument();
-	e.startNode("root");
-	e.endNode();
-	e.startNode("root");
-	e.endNode();
+	e.startElement("root");
+	e.endElement();
+	e.startElement("root");
+	e.endElement();
 	e.endDocument();
 	return 0;
 }
-int nestedNodes() {
+int nestedElements() {
 	FI::Encoder e;
 	FI::StreamBitWriter writer;
 	writer.setStream(&std::cout);
 	e.setWriter(&writer);
 	e.startDocument();
-	e.startNode("node1");
-	e.startNode("node2");
-	e.startNode("node3");
-	e.endNode();
-	e.endNode();
-	e.endNode();
+	e.startElement("node1");
+	e.startElement("node2");
+	e.startElement("node3");
+	e.endElement();
+	e.endElement();
+	e.endElement();
 	e.endDocument();
 	return 0;
 }
@@ -79,13 +79,13 @@ int main(int argc, char *argv[]) {
 			return documentOnly();
 			break;
 		case 1:
-			return oneNode();
+			return oneElement();
 			break;
 		case 2:
-			return twoNodes();
+			return twoElements();
 			break;
 		case 3:
-			return nestedNodes();
+			return nestedElements();
 			break;
 		default:
 			std::cerr << "Unknown test number: " << testNr << std::endl;

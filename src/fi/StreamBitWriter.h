@@ -35,6 +35,11 @@ public:
 	virtual void putBytes(const unsigned char* bytes, size_t length);
 	virtual int getBitPos();
 
+	virtual inline void fillByte(bool on) {
+		while (_currentBitPos)
+			putBit(on);
+	}
+
 protected:
 	unsigned char append(unsigned int value, unsigned char count);
 	void tryFlush();

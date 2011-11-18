@@ -17,72 +17,23 @@
 
 namespace FI {
 
-  void ParserVocabulary::addElementName(const QualifiedNameOrIndex &name)
+  void ParserVocabulary::addQualifiedName(QualifiedNameTable* table, const QualifiedName& name)
   {
-    if (!name._nameSurrogateIndex)
-    {
-      getElementTable()->addUnique(name._literalQualifiedName);
-      if(!name._literalQualifiedName._prefix._stringIndex && 
-        name._literalQualifiedName._prefix._literalCharacterString.length())
+      table->addUnique(name); // Should be last action?
+      if(!name._prefix._stringIndex && 
+        name._prefix._literalCharacterString.length())
       {
-        addPrefix(name._literalQualifiedName._prefix._literalCharacterString);
+		  addStringToTable(PREFIX, name._prefix._literalCharacterString);
       }
-      if(!name._literalQualifiedName._namespaceName._stringIndex && 
-        name._literalQualifiedName._namespaceName._literalCharacterString.length())
+      if(!name._namespaceName._stringIndex && 
+        name._namespaceName._literalCharacterString.length())
       {
-        addNamespaceName(name._literalQualifiedName._namespaceName._literalCharacterString);
+		  addStringToTable(NAMESPACE_NAME, name._namespaceName._literalCharacterString);
       }
-      if(!name._literalQualifiedName._localName._stringIndex)
+      if(!name._localName._stringIndex)
       {
-        addLocalName(name._literalQualifiedName._localName._literalCharacterString);
+		  addStringToTable(LOCAL_NAME, name._localName._literalCharacterString);
       }
-    }
-  }
-
-  void ParserVocabulary::addAttributeName(const QualifiedNameOrIndex &name)
-  {
-    if (!name._nameSurrogateIndex)
-    {
-      getAttributeTable()->addUnique(name._literalQualifiedName);
-      if(!name._literalQualifiedName._prefix._stringIndex && 
-        name._literalQualifiedName._prefix._literalCharacterString.length())
-      {
-        addPrefix(name._literalQualifiedName._prefix._literalCharacterString);
-      }
-      if(!name._literalQualifiedName._namespaceName._stringIndex && 
-        name._literalQualifiedName._namespaceName._literalCharacterString.length())
-      {
-        addNamespaceName(name._literalQualifiedName._namespaceName._literalCharacterString);
-      }
-      if(!name._literalQualifiedName._localName._stringIndex)
-      {
-        addLocalName(name._literalQualifiedName._localName._literalCharacterString);
-      }
-    }
-  }
-
-  void ParserVocabulary::addAttributeValue(const NonIdentifyingStringOrIndex &value)
-  {
-    if (value._stringIndex == INDEX_NOT_SET && value._addToTable)
-    {
-      this->addAttributeValue(this->resolveAttributeValue(value));
-    }
-  }
-
-  void ParserVocabulary::addCharacterChunk(const NonIdentifyingStringOrIndex& chunk)
-  {
-    if (chunk._stringIndex == INDEX_NOT_SET && chunk._addToTable)
-    {
-      this->addCharacterChunk(this->resolveCharacterChunk(chunk));
-    }
-  }
-
-  void ParserVocabulary::addOtherString(const NonIdentifyingStringOrIndex& str)
-  {
-    if (str._stringIndex == INDEX_NOT_SET && str._addToTable)
-    {
-      this->addOtherString(this->resolveOtherString(str));
-    }
   }
 
   void ParserVocabulary::resolveElementName(const QualifiedNameOrIndex &nameOrIndex, ResolvedQualifiedName& out) const
@@ -118,74 +69,30 @@ namespace FI {
 
   void ParserVocabulary::resolveQualifiedName(const QualifiedName &qname, ResolvedQualifiedName& out) const
   {
-    out._prefix = resolvePrefix(qname._prefix);
-    out._namespaceName = resolveNamespaceName(qname._namespaceName);
-
-    if (qname._localName._stringIndex == INDEX_NOT_SET) {
-      out._localName = qname._localName._literalCharacterString;
-    } else {
-      out._localName = getLocalName(qname._localName._stringIndex);
-    }
+	out._prefix = resolveStringOrIndex(PREFIX, qname._prefix);
+	out._namespaceName = resolveStringOrIndex(NAMESPACE_NAME, qname._namespaceName);
+	out._localName = resolveStringOrIndex(LOCAL_NAME, qname._localName);
   }
 
-  NonEmptyOctetString ParserVocabulary::resolveAttributeValue(const NonIdentifyingStringOrIndex &input) const
+  NonEmptyOctetString	ParserVocabulary::resolveStringOrIndex(TableNames table, const NonIdentifyingStringOrIndex &input) const
   {
     unsigned int stringIndex = input._stringIndex;
     if (stringIndex == INDEX_NOT_SET)
     {
       return decodeCharacterString(input._characterString);
     }
-    return getAttributeValue(stringIndex);
+    return getTableEntry(table, stringIndex);
   }
 
-  NonEmptyOctetString	ParserVocabulary::resolveCharacterChunk(const NonIdentifyingStringOrIndex &input) const
+  NonEmptyOctetString	ParserVocabulary::resolveStringOrIndex(TableNames table, const IdentifyingStringOrIndex &input) const
   {
-    unsigned int stringIndex = input._stringIndex;
-    if (stringIndex == INDEX_NOT_SET)
-    {
-      return decodeCharacterString(input._characterString);
-    }
-    return getCharacterChunk(stringIndex);
-  }
-
-  NonEmptyOctetString	ParserVocabulary::resolveOtherString(const NonIdentifyingStringOrIndex &input) const
-  {
-    unsigned int stringIndex = input._stringIndex;
-    if (stringIndex == INDEX_NOT_SET)
-    {
-      return decodeCharacterString(input._characterString);
-    }
-    return getOtherString(stringIndex);
-  }
-
-  NonEmptyOctetString	ParserVocabulary::resolvePrefix(const IdentifyingStringOrIndex &input) const
-  {
+    assert(table > 0 && table < TABLENAMES_MAX);
     unsigned int stringIndex = input._stringIndex;
     if (stringIndex == INDEX_NOT_SET)
     {
       return input._literalCharacterString;
     }
-    return getPrefix(stringIndex);
-  }
-
-  NonEmptyOctetString	ParserVocabulary::resolveOtherNCName(const IdentifyingStringOrIndex &input) const
-  {
-    unsigned int stringIndex = input._stringIndex;
-    if (stringIndex == INDEX_NOT_SET)
-    {
-      return input._literalCharacterString;
-    }
-    return getOtherNCName(stringIndex);
-  }
-  
-  NonEmptyOctetString	ParserVocabulary::resolveNamespaceName(const IdentifyingStringOrIndex &input) const
-  {
-    unsigned int stringIndex = input._stringIndex;
-    if (stringIndex == INDEX_NOT_SET)
-    {
-      return input._literalCharacterString;
-    }
-    return getNamespaceName(stringIndex);
+    return getTableEntry(table, stringIndex);
   }
 
   NonEmptyOctetString	ParserVocabulary::decodeCharacterString(const EncodedCharacterString &input) const
@@ -204,6 +111,21 @@ namespace FI {
       throw std::runtime_error("Unknown encoding format.");
     }
   }
+
+void ParserVocabulary::addStringOrIndex(TableNames table, const NonIdentifyingStringOrIndex &value)
+{
+	if (value._stringIndex == INDEX_NOT_SET && value._addToTable)
+	{
+		this->addStringToTable(table, decodeCharacterString(value._characterString));
+	}
+}
+
+/*  void ParserVocabulary::encodeElementName(QualifiedNameOrIndex &name) {
+	  assert(!name._nameSurrogateIndex);
+	  if (name._literalQualifiedName._prefix._literalCharacterString.length())
+
+  }*/
+
 
 
 } // namespace FI
