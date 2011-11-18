@@ -42,7 +42,6 @@ int main(int ac, char* av[]) {
 			std::cerr << "Can't open file: " << input_filename << std::endl;
 			exit(1);
 		}
-		std::cout << "Opening " << input_filename << std::endl;
 		parser.setStream(&file);
 	}
 	try {

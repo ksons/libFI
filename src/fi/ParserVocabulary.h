@@ -64,10 +64,12 @@ public:
 
 	virtual void addQualifiedName(QualifiedNameTable* table, const QualifiedName& name);
 	inline void addAttributeName(const QualifiedNameOrIndex& name) {
-		addQualifiedName(getAttributeTable(), name._literalQualifiedName);
+		if(!name._nameSurrogateIndex)
+			addQualifiedName(getAttributeTable(), name._literalQualifiedName);
 	};
 	virtual void addElementName(const QualifiedNameOrIndex& name) {
-		addQualifiedName(getElementTable(), name._literalQualifiedName);
+		if(!name._nameSurrogateIndex)
+			addQualifiedName(getElementTable(), name._literalQualifiedName);
 	};
 	virtual void addStringOrIndex(TableNames table, const NonIdentifyingStringOrIndex& value);
 
