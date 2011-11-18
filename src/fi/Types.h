@@ -19,6 +19,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 #include <fi/Config.h>
 
 namespace FI {
@@ -105,6 +106,14 @@ namespace FI {
         return _stringIndex == 0  ? (rhs._stringIndex == 0 && _literalCharacterString == rhs._literalCharacterString)
           : _stringIndex == rhs._stringIndex;
       }
+
+      inline friend std::ostream & operator<<(std::ostream& os, const IdentifyingStringOrIndex & _i)
+      {
+        os << "IdentifyingStringOrIndex(" << _i._stringIndex << " / "  <<
+							_i._literalCharacterString.toString() << ")";
+        return os;
+      }
+
     }; // IdentifyingStringOrIndex
     
     /** 
@@ -173,6 +182,14 @@ namespace FI {
            _namespaceName == rhs._namespaceName &&
            _prefix == rhs._prefix;
       }
+      inline friend std::ostream & operator<<(std::ostream& os, const QualifiedName& _name)
+      {
+        os << "QualifiedName( " << _name._prefix << ", " <<
+								   _name._namespaceName << ", " <<
+								   _name._localName << ")";
+        return os;
+      }
+
     }; // QualifiedName
     
     /** 
