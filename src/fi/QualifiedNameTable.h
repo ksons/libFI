@@ -19,6 +19,7 @@ public:
 
 	QualifiedName get(unsigned int) const;
 	unsigned int addUnique(const QualifiedName& name);
+	size_t size();
 
 protected:
 	std::vector<QualifiedName> _names;

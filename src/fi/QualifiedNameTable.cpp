@@ -26,6 +26,7 @@ QualifiedName QualifiedNameTable::get(unsigned int i) const {
 
 
 unsigned int QualifiedNameTable::addUnique(const QualifiedName& name) {
+	//std::cerr << name << std::endl;
 	std::vector<QualifiedName>::const_iterator I = find(_names.begin(), _names.end(), name);
 	if (I == _names.end())
 	{
@@ -34,4 +35,10 @@ unsigned int QualifiedNameTable::addUnique(const QualifiedName& name) {
 	}
 	return I - _names.begin();
 }
+
+size_t QualifiedNameTable::size() {
+	return _names.size();
 }
+
+
+} // end namespace FI
